@@ -1,2 +1,12 @@
 # Adventure
-Game project at work
+Jogo topdown beat-them-up com espadas?
++
+## A FAZER:
+-
+-
+## VALIDANDO:
+-
+-
+## FEITO ##:
+-
++
