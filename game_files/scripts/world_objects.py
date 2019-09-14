@@ -3,16 +3,15 @@ import pygame
 from game_files.PPlay import window as win
 from game_files.PPlay.gameimage import GameImage
 from game_files.PPlay.sprite import Sprite
-from game_files.scripts import player_manager as p, constants as c, hotbar as it, game_events
+from game_files.scripts import player_manager as p, constants as c, hotbar as it, game_events, game_state as gs
 
 
 class Control():
-    def __init__(self):
-        self.STATE = 0
-
+    def __init__(self, state):
         self.screen = win.Window(c.width, c.height)
         self.screen.set_title(c.TITTLE)
         self.mouse = self.screen.get_mouse()
+        self.state_manager = state
 
         self.background = GameImage(c.BACKGROUND_IMAGE)
 
@@ -58,12 +57,12 @@ class Control():
             elif event.type == game_events.START_PLAYER_INVUL:
                 self.player.invul_start()
 
-    def draw(self):
-        if self.STATE == 0:
+    def draw(self, STATE):
+        if STATE == 0:
             self.background.draw()
             self.titleImage.draw()
 
-        elif self.STATE == 1:
+        elif STATE == 1:
             self.background.draw()
             self.inventory.draw()
             self.spike.draw()
@@ -74,7 +73,7 @@ class Control():
             self.playButton[1].draw()
             if self.mouse.is_button_pressed(1):
                 self.screen.clear()
-                self.STATE = 1
+                self.state_manager.set_state(1)
         else:
             self.playButton[0].draw()
         self.screen.update()
@@ -83,6 +82,4 @@ class Control():
         self.__event_handle()
         self.screen.update()
 
-    def get_state(self):
-        return self.STATE
 
