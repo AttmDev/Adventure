@@ -40,7 +40,8 @@ class Window():
         # Creates the screen (pygame.Surface)
         # There are some useful flags (look pygame's docs)
         # It's like a static attribute in Java
-        Window.screen = pygame.display.set_mode([self.width, self.height])
+        Window.screen = pygame.display.set_mode([self.width, self.height], flags=pygame.FULLSCREEN)
+        pygame.display.Info()
         # ? Why is it possible to do w.screen?
 
         # Sets pattern starting conditions

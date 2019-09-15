@@ -1,4 +1,4 @@
-SCREENSIZE = width, height = 1280, 720
+SCREENSIZE = width, height = 1280,720
 
 TITTLE = "Jogo"
 

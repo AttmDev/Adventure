@@ -10,12 +10,13 @@ class Health:
 
         self.lifeUnits = list()
 
-        self.lifeBar.x = (c.width - self.lifeBar.width) / 2
-        self.lifeBar.y = c.height - self.lifeBar.height - c.height / 72
+        self.lifeBar.x = (c.width - self.lifeBar.width) / 32
+        self.lifeBar.y = c.height / 72
 
         for i in range(0, player_hp):
             new_node = sp.Sprite(c.LIFE_UNIT_IMAGE, 1)
             new_node.width = ((self.lifeBar.width + self.spacing())/player_hp) - self.spacing()
+            new_node.height = self.lifeBar.height
             new_node.x = self.lifeBar.x + (new_node.width + self.spacing())* i
             new_node.y = self.lifeBar.y
 
