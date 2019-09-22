@@ -3,11 +3,12 @@ from game_files.scripts import constants as c
 
 class Inventory():
     def __init__(self):
-        self.spaces = [gi.GameImage(c.INV_BAR_HUD_IMAGE) for i in range(5)]
-        self.spaces[0].x = c.width/15
-        self.spaces[0].y = c.height/40
+        self.inventory_area = gi.GameImage(c.INV_BAR_HUD_IMAGE)
+        self.inventory_area.x = c.HUD_SPACER #self.inventory_area.width * 0.2
+        self.inventory_area.y = self.inventory_area.x
+
     def draw(self):
-        self.spaces[0].draw()
+        self.inventory_area.draw()
 
 class Item(gi.GameImage):
     def __init__(self, image_file, tipo = None):
