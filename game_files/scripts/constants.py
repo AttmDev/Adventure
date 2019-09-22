@@ -14,6 +14,7 @@ MENU_OPTION_IMAGE = "game_files/assets/options1.png", "game_files/assets/options
 MENU_EXIT_IMAGE = "game_files/assets/exit1.png", "game_files/assets/exit0.png"
 
 PLAYER_SPRITE = "game_files/assets/soldier.png"
+BULLET_IMAGE = "game_files/assets/bullet.png"
 
 INV_BAR_HUD_IMAGE = "game_files/assets/inventorybar.png"
 

@@ -1,4 +1,4 @@
-from game_files.scripts import enemies_manager, player_manager, hotbar
+from game_files.scripts import constants, enemies_manager, bullet, player_manager, hotbar
 from game_files.scripts.events import event_name
 from math import sqrt
 
@@ -11,6 +11,9 @@ class World_objects():
         self.player = player_manager.Player(self.user_event)
         self.inventory = hotbar.Inventory()
         self.enemy_colliding = None
+
+        self.bullet = bullet.Bullet(constants.BULLET_IMAGE, 5)
+        #APENAS PARA TESTE
 
     def test_for_battle(self):
         for enemy in self.enemies_list.get_enemy_list():
@@ -33,6 +36,7 @@ class World_objects():
         self.inventory.draw()
         self.enemies_list.draw_and_update()
         self.player.draw_and_update()
+        self.bullet.draw_and_update()
 
     def distance_between_objects(self, obj1, obj2):
         return sqrt((obj2.x-obj1.x) ** 2 + (obj2.y-obj1.y) ** 2)

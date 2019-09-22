@@ -6,7 +6,9 @@ from game_files.scripts.life_manager import Health
 
 class Player(sp.Sprite):
     def __init__(self, user_event_manager):
-        super().__init__(c.PLAYER_SPRITE)
+        super().__init__(c.PLAYER_SPRITE, 4)
+        self.set_loop(False)
+        # self.set_total_duration(100)
         self.hit_points = 20
         self.hp = Health(self)
         self.speed = 250
@@ -17,8 +19,7 @@ class Player(sp.Sprite):
         self.user_events = user_event_manager
         self.invul_start()
         self.damage = 1
-        self.is_atacking = False #caso seja espada, se for tiro tem que fazer a classe bullet
-        self.facing = True #TRUE PARA DIREITA, FALSE PARA ESQUERDA
+
 
     def is_alive(self):
         return self.hp.healthPoints > 0
@@ -29,6 +30,7 @@ class Player(sp.Sprite):
         try:
             self.update()
         except:
+            # print("erro no update")
             pass
 
     def loseHp(self, damage: int = 1):
