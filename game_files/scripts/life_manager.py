@@ -14,6 +14,7 @@ class Health:
         if pos == None:
             self.lifeBar.x = c.HUD_SPACER * 6.2
             self.lifeBar.y = c.HUD_SPACER
+            self.lifeBar.width *= 0.5
         else:
             self.is_player = False
             self.lifeBar.width = object_with_health.width * 0.5
