@@ -7,7 +7,8 @@ class Enemies():
         if lista_de_inimigos is not None:
             self.enemies_list = lista_de_inimigos
 
-        self.enemies_list.append(Enemy.Enemy_object(constants.ENEMY_SPIKE_SPRITE))
+        self.enemies_list.append(Enemy.Enemy_object(
+            constants.ENEMY_SPIKE_SPRITE))
 
     def get_enemy_list(self):
         return self.enemies_list

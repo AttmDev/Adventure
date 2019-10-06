@@ -11,7 +11,7 @@ class Player(sp.Sprite):
         # self.set_total_duration(100)
         self.hit_points = 20
         self.hp = Health(self)
-        self.speed = 250
+        self.speed = 150
         self.x = c.width/2
         self.y = c.height/2
         self.cd = .95  #tempo de cooldown usado em seg para invulnerabilidade quando recebe dano
@@ -41,11 +41,13 @@ class Player(sp.Sprite):
         #TODO mudar o sprite para um de invulnerabilidade
         if not self.is_invulnerable:
             self.is_invulnerable = True
-            self.user_events.start_user_event_timer(self.cd, event_name.END_PLAYER_INVUL)
+            self.user_events.start_user_event_timer(
+                self.cd, event_name.END_PLAYER_INVUL)
 
     def invul_end(self):
         #TODO mudar o sprite de volta
         self.is_invulnerable = False
+
 
 
 

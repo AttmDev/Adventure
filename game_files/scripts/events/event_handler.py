@@ -1,6 +1,6 @@
 import pygame
 
-from game_files.scripts import battle_mode
+from game_files.scripts import battle_mode, bullet
 from game_files.scripts.events import event_name
 
 
@@ -21,13 +21,15 @@ class Game_event_handler():
             world.player.set_curr_frame(0)
             world.player.move_x(-world.player.speed * delta_time)
 
-        elif key_pressed[pygame.K_UP]:
+        if key_pressed[pygame.K_UP]:
             world.player.move_y(-world.player.speed * delta_time)
             world.player.set_curr_frame(1)
 
         elif key_pressed[pygame.K_DOWN]:
             world.player.move_y(world.player.speed * delta_time)
             world.player.set_curr_frame(3)
+        if key_pressed[pygame.K_SPACE]:
+            world.bullets.add_bullets(world.player)
 
 
         user_events = list(set(self.user_events_dispatcher.get_user_events()))
@@ -48,6 +50,13 @@ class Game_event_handler():
 
             elif event == event_name.DAMAGE_DEALT:
                 world.enemy_colliding.lose_hp(world.player.damage)
+
+            elif event == event_name.START_BULLET_TICK:
+                world.bullets.tick_start()
+
+            elif event == event_name.END_BULLET_TICK:
+                world.bullets.tick_end()
+
 
 
 
