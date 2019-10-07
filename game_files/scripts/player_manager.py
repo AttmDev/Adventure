@@ -41,13 +41,8 @@ class Player(sp.Sprite):
         #TODO mudar o sprite para um de invulnerabilidade
         if not self.is_invulnerable:
             self.is_invulnerable = True
-            self.user_events.start_user_event_timer(
-                self.cd, event_name.END_PLAYER_INVUL)
+            self.user_events.start_user_event_timer(self.cd, event_name.END_PLAYER_INVUL)
 
     def invul_end(self):
         #TODO mudar o sprite de volta
         self.is_invulnerable = False
-
-
-
-

@@ -8,7 +8,7 @@ class Bullet(Sprite):
         self.player = player
         self.direction = player.get_curr_frame()
         self.set_initial_position()
-        self.speed = 200
+        self.speed = 300
         self.collided = False
 
     def set_initial_position(self):
@@ -35,18 +35,9 @@ class Bullet(Sprite):
         self.collided = True
 
     def is_dead(self):
-        if self.collided:
+        if self.collided or self.x > constants.width or self.x < 0 or self.y > constants.height or self.y < 0:
             return True
-        elif self.x > constants.width:
-            return True
-        elif self.x < 0:
-            return True
-        elif self.y > constants.height:
-            return True
-        elif self.y < 0:
-            return True
-        else:
-            return False
+        return False
 
     def move(self, delta_time):
         if self.direction == 0:

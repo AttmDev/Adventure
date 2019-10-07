@@ -1,4 +1,4 @@
-import pygame
+import pygame, time
 
 from game_files.scripts import battle_mode, bullet
 from game_files.scripts.events import event_name
@@ -9,6 +9,7 @@ class Game_event_handler():
     def __init__(self, user_event):
         self.user_events_dispatcher = user_event
         self.battle = battle_mode.Battle(user_event)
+        self.is_paused = False
 
     def run(self, delta_time, world):
 
@@ -28,9 +29,22 @@ class Game_event_handler():
         elif key_pressed[pygame.K_DOWN]:
             world.player.move_y(world.player.speed * delta_time)
             world.player.set_curr_frame(3)
+
         if key_pressed[pygame.K_SPACE]:
             world.bullets.add_bullets(world.player)
 
+        if key_pressed[pygame.K_ESCAPE]:
+            pygame.quit()
+            quit()
+
+        # if key_pressed[pygame.K_RETURN]: #TODO ESSE PAUSE N FUNFA
+        #     self.is_paused = True
+        #
+        # while self.is_paused:
+        #     time.sleep(.25)
+        #     key_pressed = pygame.key.get_pressed()
+        #     if key_pressed[pygame.K_RETURN]:
+        #         self.is_paused = False
 
         user_events = list(set(self.user_events_dispatcher.get_user_events()))
         for event in user_events:
@@ -42,8 +56,8 @@ class Game_event_handler():
                 world.player.invul_end()
 
             elif event == event_name.START_BATTLE:
-                #TODO MUDAR STATE//
-                self.battle.run()
+                pass
+                #self.battle.run() #NÃO VAI SER MAIS UM RPG
 
             elif event == event_name.DAMAGE_RECEIVED:
                 world.player.loseHp(world.enemy_colliding.damage)

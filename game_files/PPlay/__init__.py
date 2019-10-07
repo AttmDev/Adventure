@@ -4,9 +4,9 @@ __all__ =   [
             "gameimage",
             "gameobject",
             "keyboard",
-            #"mouse",
+            "mouse",
             "point",
-            #"sound",
+            "sound",
             "sprite",
             "window"
             ]

@@ -1,4 +1,4 @@
-from game_files.scripts import constants, Enemy
+from game_files.scripts import constants, enemy
 
 
 class Enemies():
@@ -7,10 +7,14 @@ class Enemies():
         if lista_de_inimigos is not None:
             self.enemies_list = lista_de_inimigos
 
-        self.enemies_list.append(Enemy.Enemy_object(
+        self.enemies_list.append(enemy.Enemy_object(
             constants.ENEMY_SPIKE_SPRITE))
 
     def get_enemy_list(self):
+        if not self.enemies_list:
+            self.enemies_list.append(enemy.Enemy_object(
+                constants.ENEMY_SPIKE_SPRITE))
+
         return self.enemies_list
 
     def draw_and_update(self):

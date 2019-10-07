@@ -1,19 +1,20 @@
 from game_files.PPlay.sprite import Sprite
-from game_files.scripts.life_manager import Health
+from game_files.scripts import life_manager, constants
 from threading import Timer
+import random
 
 class Enemy_object(Sprite):
 
     def __init__(self, sprite):
         super().__init__(sprite)
-        self.x = 100
-        self.y = 250
+        self.x = random.randint(0, constants.width - self.width)
+        self.y = random.randint(0, constants.height - self.height)
         self.speed = 100
         self.hit_points = 3
-        self.hp = Health(self, [self.x, self.y])
+        self.hp = life_manager.Health(self, [self.x, self.y])
         self.damage = 2
         self.is_invulnerable = False
-        self.cd = 1
+        self.cd = .1
 
 
     def draw_and_update(self):

@@ -34,8 +34,8 @@ class Bullets():
         self.is_shooting = False
 
     def check_hit(self, enemies):
-        for e in enemies:
-            for b in self.bullets:
+        for b in self.bullets:
+            for e in enemies:
                 if b.collided_perfect(e):
                     self.events.post_user_event(
                         event_name.DAMAGE_DEALT)
