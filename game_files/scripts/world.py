@@ -31,6 +31,7 @@ class World_objects():
             for e in self.enemies_list.get_enemy_list():
                 if b.collided_perfect(e):
                     self.enemy_colliding = e
+                    e.knocked_back(b.direction)
                     b.is_colliding()
                     self.user_event.post_user_event(event_name.DAMAGE_DEALT)
                     break
@@ -43,7 +44,7 @@ class World_objects():
 
     def draw_and_update(self):
         self.inventory.draw()
-        self.enemies_list.draw_and_update()
+        self.enemies_list.draw_and_update(self.screen.delta_time())
         self.bullets.draw_and_update(self.screen.delta_time())
         self.player.draw_and_update()
 
@@ -63,3 +64,6 @@ class World_objects():
 
     def add_bullet(self):
         self.bullets.bullets.append(bullet.Bullet(constants.BULLET_IMAGE, 5, self.player))
+
+    def get_vector_between_obj(self, obj1, obj2):
+        pass

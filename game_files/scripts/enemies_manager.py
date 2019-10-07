@@ -17,12 +17,13 @@ class Enemies():
 
         return self.enemies_list
 
-    def draw_and_update(self):
+    def draw_and_update(self, delta):
         for enemy in self.enemies_list:
             if not enemy.is_alive():
                 self.enemies_list.remove(enemy)
                 continue
             enemy.hp.draw_and_update()
-            enemy.draw_and_update()
+            enemy.draw_and_update(delta)
+
 
 
