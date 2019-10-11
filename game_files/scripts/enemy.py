@@ -5,11 +5,11 @@ import random
 
 class Enemy_object(Sprite):
 
-    def __init__(self, sprite):
-        super().__init__(sprite)
-        self.x = random.randint(0, constants.width - self.width)
-        self.y = random.randint(0, constants.height - self.height)
-        self.speed = 100
+    def __init__(self, sprite, n=1):
+        super().__init__(sprite, n)
+        self.x = random.randint(0, int(constants.width - self.width))
+        self.y = random.randint(0, int(constants.height - self.height))
+        self.speed = 50
         self.hit_points = 5
         self.hp = life_manager.Health(self, [self.x, self.y])
         self.damage = 2
@@ -17,7 +17,7 @@ class Enemy_object(Sprite):
         self.cd = .25
         self.knockback_status = False
         self.knockback_time = .24
-        self.knockback_force = 100
+        self.knockback_force = 300
         self.knockback_direction = 0
 
 
@@ -28,10 +28,11 @@ class Enemy_object(Sprite):
                 self.__do_knock_mov(delta)
             self.draw()
             try:
+                self.play()
                 self.update()
             except:
-                #print(f"Erro ao update Enemy {self}")
-                pass
+                print(f"unable to update {self} at x:{self.x} y:{self.y}")
+
 
     def wiggle(self):
         normal_height = self.height
@@ -51,7 +52,7 @@ class Enemy_object(Sprite):
     def lose_hp(self, damage):
         self.hp.lose_hp(damage, self.is_invulnerable)
         if not self.is_invulnerable:
-            self.wiggle() #TODO FAZER ISSO FUNFAR
+            # self.wiggle() #TODO FAZER ISSO FUNFAR
             self.set_invul_state(True)
             t = Timer(self.cd, self.set_invul_state, args=[False])
             t.start()

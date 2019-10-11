@@ -7,7 +7,7 @@ class World_objects():
     def __init__(self, user_event_manager, screen):
         self.screen = screen
         self.user_event = user_event_manager
-        self.enemies_list = enemies_manager.Enemies(self.user_event)
+        self.enemies_list = enemies_manager.Enemies(self.user_event, )
         self.player = player_manager.Player(self.user_event)
         self.inventory = hotbar.Inventory()
         self.enemy_colliding = None
@@ -44,7 +44,7 @@ class World_objects():
 
     def draw_and_update(self):
         self.inventory.draw()
-        self.enemies_list.draw_and_update(self.screen.delta_time())
+        self.enemies_list.draw_and_update(self.player, self.screen.delta_time())
         self.bullets.draw_and_update(self.screen.delta_time())
         self.player.draw_and_update()
 
