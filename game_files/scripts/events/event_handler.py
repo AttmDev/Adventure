@@ -55,10 +55,6 @@ class Game_event_handler():
             elif event == event_name.END_PLAYER_INVUL:
                 world.player.invul_end()
 
-            elif event == event_name.START_BATTLE:
-                pass
-                #self.battle.run() #NÃO VAI SER MAIS UM RPG
-
             elif event == event_name.DAMAGE_RECEIVED:
                 world.player.loseHp(world.enemy_colliding.damage)
 
@@ -70,8 +66,3 @@ class Game_event_handler():
 
             elif event == event_name.END_BULLET_TICK:
                 world.bullets.tick_end()
-
-
-
-
-

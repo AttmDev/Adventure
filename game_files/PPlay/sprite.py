@@ -1,9 +1,12 @@
 # coding= utf-8
 
 # Modules
+import sys
+import time
 import pygame
 from . import window
 from . import animation
+from pygame.locals import *
 
 # Initializes pygame's modules
 pygame.init()

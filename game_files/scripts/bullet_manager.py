@@ -1,19 +1,20 @@
-from game_files.scripts import bullet, constants
+from game_files.scripts import bullet, constants, smoke
 from game_files.scripts.events import event_name
 
 
 class Bullets():
-    def __init__(self, user_event_manager):
+    def __init__(self, user_event_manager, sfx_manager):
         self.bullets = []
         self.cooldown = .5
         self.is_shooting = False
         self.events = user_event_manager
+        self.sfx = sfx_manager
 
     def add_bullets(self, player):
         if not self.is_shooting:
             self.events.post_user_event(event_name.START_BULLET_TICK)
             self.bullets.append(bullet.Bullet
-                                (constants.BULLET_IMAGE, 5, player))
+                                (constants.BULLET_IMAGE, 5, player, self.sfx))
 
     def get_bullets_list(self):
         return self.bullets

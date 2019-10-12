@@ -1,14 +1,16 @@
+import random
+from threading import Timer
+
 from game_files.PPlay.sprite import Sprite
 from game_files.scripts import life_manager, constants
-from threading import Timer
-import random
+
 
 class Enemy_object(Sprite):
 
     def __init__(self, sprite, n=1):
         super().__init__(sprite, n)
-        self.x = random.randint(0, int(constants.width - self.width))
-        self.y = random.randint(0, int(constants.height - self.height))
+        self.last_spawn = 0
+        self.x, self.y = self.spawn(self)
         self.speed = 50
         self.hit_points = 5
         self.hp = life_manager.Health(self, [self.x, self.y])
@@ -84,3 +86,19 @@ class Enemy_object(Sprite):
             self.x += self.knockback_force *x
         elif self.knockback_direction == 3:
             self.y += self.knockback_force *x
+
+    @staticmethod
+    def spawn(self):
+        while True:
+            area = random.randint(0, 4)
+            if not area == self.last_spawn:
+                break
+        if area == 1:
+            return -self.width, random.randint(0, constants.height)
+        if area == 2:
+            return constants.width+self.width, random.randint(0, constants.height)
+        if area == 3:
+            return random.randint(0, constants.width), -self.height
+        if area == 4:
+            return random.randint(0, constants.width), constants.height+self.height
+        return 0, 0

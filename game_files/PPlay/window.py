@@ -40,8 +40,7 @@ class Window():
         # Creates the screen (pygame.Surface)
         # There are some useful flags (look pygame's docs)
         # It's like a static attribute in Java
-        Window.screen = pygame.display.set_mode([self.width, self.height],  flags=pygame.FULLSCREEN)
-        pygame.display.Info()
+        Window.screen = pygame.display.set_mode([self.width, self.height])
         # ? Why is it possible to do w.screen?
 
         # Sets pattern starting conditions
@@ -52,7 +51,22 @@ class Window():
         # Can be used to update portions of the screen (Rect list)
         pygame.display.update()
 
+#------------------------TODO - VIDEO RESIZE METHODS----------------------
+    """Not implemented yet - Sets the Window to Fullscreen"""
+    # Unfortunately, it must save the old screen (buffer) and
+    # blit (transfer, see pygame doc) to the new FSCREEN
+    def set_fullscreen(self): pass
+    # TODO
 
+    """Not implemented yet - Disable the full display mode"""
+    # Yeah.. guess what..
+    def restoreScreen(self): pass
+    # TODO
+
+    """Not implemented yet - Sets the Window resolution"""
+    # The same problem as fullscreen
+    def set_resolution(self, width, height): pass
+    # TODO
     
 #-----------------------CONTROL METHODS---------------------------
     """Refreshes the Window - makes changes visible, AND updates the Time"""

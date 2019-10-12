@@ -1,10 +1,11 @@
 from game_files.PPlay.sprite import Sprite
-from game_files.scripts import constants
+from game_files.scripts import constants, smoke
 
 class Bullet(Sprite):
-    def __init__(self, sprite, frames, player):
+    def __init__(self, sprite, frames, player, sfx):
         super().__init__(sprite, frames)
         self.set_total_duration(500)
+        self.sfx_manager = sfx
         self.player = player
         self.direction = player.get_curr_frame()
         self.set_initial_position()
@@ -24,6 +25,7 @@ class Bullet(Sprite):
         elif self.direction == 3:
             self.x = self.player.x+self.width
             self.y = self.player.y + self.player.height - self.width
+        self.sfx_manager.add_to_list(smoke.smoke(player=self.player))
 
 
     def draw_and_update(self, delta_time):

@@ -1,4 +1,4 @@
-from game_files.scripts import constants, enemy, zombie
+from game_files.scripts import constants, zombie
 
 
 class Enemies():

@@ -1,10 +1,12 @@
 # coding= utf-8
 
 # Pygame and System Modules
+import sys
 import time
 import pygame
 from . import window
 from . import gameimage
+from pygame.locals import *
 
 # Initializes pygame's modules
 pygame.init()

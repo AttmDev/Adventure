@@ -6,7 +6,7 @@ from game_files.scripts.life_manager import Health
 
 class Player(sp.Sprite):
     def __init__(self, user_event_manager):
-        super().__init__(c.PLAYER_SPRITE, 4)
+        super().__init__(c.PLAYER_IMAGE, 4)
         self.set_loop(False)
         # self.set_total_duration(100)
         self.hit_points = 20

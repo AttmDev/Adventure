@@ -1,4 +1,3 @@
-from game_files.PPlay import gameimage as gi
 from game_files.PPlay import sprite as sp
 from game_files.scripts import constants as c
 

@@ -1,6 +1,8 @@
-from game_files.scripts import constants, enemies_manager, bullet, bullet_manager, player_manager, hotbar
-from game_files.scripts.events import event_name
 from math import sqrt
+
+from game_files.PPlay import collision
+from game_files.scripts import constants, enemies_manager, bullet, bullet_manager, player_manager, hotbar, sfx_manager
+from game_files.scripts.events import event_name
 
 
 class World_objects():
@@ -11,16 +13,12 @@ class World_objects():
         self.player = player_manager.Player(self.user_event)
         self.inventory = hotbar.Inventory()
         self.enemy_colliding = None
-        self.bullets = bullet_manager.Bullets(self.user_event)
-
-
+        self.sfx = sfx_manager.sfx()
+        self.bullets = bullet_manager.Bullets(self.user_event, self.sfx)
 
     def test_damage_on_player(self):
         for enemy in self.enemies_list.get_enemy_list():
-            # if self.distance_between_objects(self.player, enemy) < 400: #TODO VAI SAIR DAQUI POIS CADA INIMIGO SE MOVE DIFERENTE
-            #     self.move_to_obj(enemy, self.player)
-
-            if self.player.collided_perfect(enemy):
+            if collision.Collision.collided(self.player, enemy):
                 # print(f"player colidindo com objeto em x:{enemy.x} y:{enemy.y}")
                 self.enemy_colliding = enemy #eu fiz duas vezes só pra garantir HSEIUAHEIUA
                 self.enemy_colliding = enemy #eu fiz duas vezes só pra garantir HSEIUAHEIUA
@@ -29,7 +27,7 @@ class World_objects():
     def test_bullet_enemy(self):
         for b in self.bullets.get_bullets_list():
             for e in self.enemies_list.get_enemy_list():
-                if b.collided_perfect(e):
+                if collision.Collision.collided(b, e):
                     self.enemy_colliding = e
                     e.knocked_back(b.direction)
                     b.is_colliding()
@@ -45,6 +43,7 @@ class World_objects():
     def draw_and_update(self):
         self.inventory.draw()
         self.enemies_list.draw_and_update(self.player, self.screen.delta_time())
+        self.sfx.draw_and_update()
         self.bullets.draw_and_update(self.screen.delta_time())
         self.player.draw_and_update()
 
@@ -61,9 +60,6 @@ class World_objects():
             obj1.move_y(obj1.speed * self.screen.delta_time())
         else:
             obj1.move_y(-obj1.speed * self.screen.delta_time())
-
-    def add_bullet(self):
-        self.bullets.bullets.append(bullet.Bullet(constants.BULLET_IMAGE, 5, self.player))
 
     def get_vector_between_obj(self, obj1, obj2):
         pass
