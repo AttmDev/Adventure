@@ -17,7 +17,7 @@ class Health:
         else:
             self.is_player = False
             self.lifeBar.width = object_with_health.width * 0.5
-            self.lifeBar.height = object_with_health.height * 0.1
+            self.lifeBar.height = c.HUD_SPACER * 0.5
             self.re_position(pos)
 
         for i in range(0, self.healthPoints):

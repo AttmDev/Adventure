@@ -14,21 +14,33 @@ class Game_event_handler():
     def run(self, delta_time, world):
 
         key_pressed = pygame.key.get_pressed()
-        if key_pressed[pygame.K_RIGHT]:
-            world.player.move_x(world.player.speed * delta_time)
+        if key_pressed[pygame.K_d]:
             world.player.set_curr_frame(2)
-
-        elif key_pressed[pygame.K_LEFT]:
+            world.player.move_x(world.player.speed * delta_time)
+        elif key_pressed[pygame.K_a]:
             world.player.set_curr_frame(0)
             world.player.move_x(-world.player.speed * delta_time)
 
-        if key_pressed[pygame.K_UP]:
+        if key_pressed[pygame.K_w]:
             world.player.move_y(-world.player.speed * delta_time)
             world.player.set_curr_frame(1)
-
-        elif key_pressed[pygame.K_DOWN]:
+        elif key_pressed[pygame.K_s]:
             world.player.move_y(world.player.speed * delta_time)
             world.player.set_curr_frame(3)
+
+
+        if key_pressed[pygame.K_RIGHT]:
+            world.player.set_curr_frame(2)
+            world.bullets.add_bullets(world.player)
+        elif key_pressed[pygame.K_LEFT]:
+            world.player.set_curr_frame(0)
+            world.bullets.add_bullets(world.player)
+        if key_pressed[pygame.K_UP]:
+            world.player.set_curr_frame(1)
+            world.bullets.add_bullets(world.player)
+        elif key_pressed[pygame.K_DOWN]:
+            world.player.set_curr_frame(3)
+            world.bullets.add_bullets(world.player)
 
         if key_pressed[pygame.K_SPACE]:
             world.bullets.add_bullets(world.player)
