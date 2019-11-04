@@ -11,7 +11,7 @@ class Bullets():
         self.events = user_event_manager
         self.sfx = sfx_manager
 
-    def add_bullets(self, player, speed = 900, qty = 10, angulo_abertura = 20):
+    def add_bullets(self, player, speed = 300, qty = 1, angulo_abertura = 20):
         if not self.is_shooting:
             self.events.post_user_event(event_name.START_BULLET_TICK)
             if qty == 1:
