@@ -29,7 +29,7 @@ class World_objects():
             for e in self.enemies_list.get_enemy_list():
                 if collision.Collision.collided(b, e):
                     self.enemy_colliding = e
-                    e.knocked_back(b.direction)
+                    e.knocked_back(b.direction_player)
                     b.is_colliding()
                     self.user_event.post_user_event(event_name.DAMAGE_DEALT)
                     break

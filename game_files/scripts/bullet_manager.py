@@ -1,5 +1,6 @@
 from game_files.scripts import bullet, constants, smoke
 from game_files.scripts.events import event_name
+from math import radians
 
 
 class Bullets():
@@ -10,11 +11,19 @@ class Bullets():
         self.events = user_event_manager
         self.sfx = sfx_manager
 
-    def add_bullets(self, player):
+    def add_bullets(self, player, speed = 900, qty = 10, angulo_abertura = 20):
         if not self.is_shooting:
             self.events.post_user_event(event_name.START_BULLET_TICK)
-            self.bullets.append(bullet.Bullet
-                                (constants.BULLET_IMAGE, 5, player, self.sfx))
+            if qty == 1:
+                self.bullets.append(bullet.Bullet
+                                    (constants.BULLET_IMAGE, 5, player, self.sfx, speed))
+            else:
+                dif_angulos = (angulo_abertura)/(qty-1)
+                angulo_inicial = angulo_abertura/2
+                for i in range(qty):
+                    self.bullets.append((bullet.Bullet(constants.BULLET_IMAGE, 5, player, self.sfx, speed, radians(angulo_inicial))))
+                    angulo_inicial-=dif_angulos
+
 
     def get_bullets_list(self):
         return self.bullets

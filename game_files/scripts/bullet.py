@@ -1,28 +1,44 @@
 from game_files.PPlay.sprite import Sprite
 from game_files.scripts import constants, smoke
+from math import cos, sin, radians
 
 class Bullet(Sprite):
-    def __init__(self, sprite, frames, player, sfx):
+    def __init__(self, sprite, frames, player, sfx, speed, angulo = 0):
         super().__init__(sprite, frames)
         self.set_total_duration(500)
         self.sfx_manager = sfx
         self.player = player
-        self.direction = player.get_curr_frame()
+        self.direction_player = player.get_curr_frame()
+        self.calc_direction(angulo)
         self.set_initial_position()
-        self.speed = 300
+        self.speed = speed
         self.collided = False
 
+    def calc_direction(self, angle):
+        if self.direction_player == 0:
+            self.vec_dir = [-1, 0]
+        elif self.direction_player == 2:
+            self.vec_dir = [1, 0]
+        elif self.direction_player == 1:
+            self.vec_dir = [0, -1]
+        elif self.direction_player == 3:
+            self.vec_dir = [0, 1]
+        vec_dir0 = self.vec_dir[0] * cos(angle) - self.vec_dir[1] * sin(angle)
+        self.vec_dir[1] = self.vec_dir[0] * sin(angle) + self.vec_dir[1] * cos(angle)
+        self.vec_dir[0] = vec_dir0
+
+
     def set_initial_position(self):
-        if self.direction == 0:
+        if self.direction_player == 0:
             self.x = self.player.x+2
             self.y = self.player.y+2
-        elif self.direction == 2:
+        elif self.direction_player == 2:
             self.x = self.player.x+self.player.width-self.width
             self.y = self.player.y + self.player.height - self.width
-        elif self.direction == 1:
+        elif self.direction_player == 1:
             self.x = self.player.x+self.player.width - self.width - 10
             self.y = self.player.y
-        elif self.direction == 3:
+        elif self.direction_player == 3:
             self.x = self.player.x+self.width
             self.y = self.player.y + self.player.height - self.width
         self.sfx_manager.add_to_list(smoke.smoke(player=self.player))
@@ -42,11 +58,5 @@ class Bullet(Sprite):
         return False
 
     def move(self, delta_time):
-        if self.direction == 0:
-            self.x -= self.speed * delta_time
-        elif self.direction == 2:
-            self.x += self.speed * delta_time
-        elif self.direction == 1:
-            self.y -= self.speed * delta_time
-        elif self.direction == 3:
-            self.y += self.speed * delta_time
+        self.x += self.vec_dir[0]* delta_time*self.speed
+        self.y+= self.vec_dir[1]*delta_time*self.speed
