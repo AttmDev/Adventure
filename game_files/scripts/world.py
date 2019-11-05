@@ -1,7 +1,7 @@
 from math import sqrt
 
 from game_files.PPlay import collision
-from game_files.scripts import constants, enemies_manager, bullet, bullet_manager, player_manager, hotbar, sfx_manager
+from game_files.scripts import constants, enemies_manager, bullet, bullet_manager, player_manager, hotbar, sfx_manager, item_manager
 from game_files.scripts.events import event_name
 
 
@@ -15,6 +15,7 @@ class World_objects():
         self.enemy_colliding = None
         self.sfx = sfx_manager.sfx()
         self.bullets = bullet_manager.Bullets(self.user_event, self.sfx)
+        self.ground_itens = item_manager.Item_manager(self.user_event)
 
     def test_damage_on_player(self):
         for enemy in self.enemies_list.get_enemy_list():
@@ -45,6 +46,7 @@ class World_objects():
         self.enemies_list.draw_and_update(self.player, self.screen.delta_time())
         self.sfx.draw_and_update()
         self.bullets.draw_and_update(self.screen.delta_time())
+        self.ground_itens.draw_and_update()
         self.player.draw_and_update()
 
     def distance_between_objects(self, obj1, obj2):

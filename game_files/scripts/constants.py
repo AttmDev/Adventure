@@ -25,5 +25,7 @@ LIFE_UNIT_IMAGE = "game_files/assets/lifeunit.png"
 ENEMY_SPIKE_SPRITE = "game_files/assets/spike.png"
 ENEMY_ZOMBIE_SPRITE = "game_files/assets/zombie.png"
 
+POTION_SPRITE = "game_files/assets/redpotion.png"
+
 RED = (255, 30, 30)
 WHITE = (255, 255, 255)

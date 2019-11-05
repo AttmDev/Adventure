@@ -11,7 +11,6 @@ class Enemies():
 
 
     def get_enemy_list(self):
-
         if not self.enemies_list:
             for x in range(self.i):
                 self.add_enemy(zombie.enemy_zombie(constants.ENEMY_ZOMBIE_SPRITE))
