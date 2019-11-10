@@ -43,7 +43,7 @@ class Game_event_handler():
             world.bullets.add_bullets(world.player)
 
         if key_pressed[pygame.K_SPACE]:
-            world.bullets.add_bullets(world.player)
+            world.item_manager.use_item(world.player, world.bullets)
 
         if key_pressed[pygame.K_ESCAPE]:
             pygame.quit()
@@ -78,3 +78,9 @@ class Game_event_handler():
 
             elif event == event_name.END_BULLET_TICK:
                 world.bullets.tick_end()
+
+            elif event == event_name.START_ITEM_USED:
+                world.item_manager.tick_start()
+
+            elif event == event_name.END_ITEM_USED:
+                world.item_manager.tick_end()

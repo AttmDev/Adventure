@@ -53,6 +53,9 @@ class Health:
         self.lifeBar.x = pos[0] + self.actor.width * 0.25
         self.lifeBar.y = pos[1] - self.lifeBar.height * 1.5
 
+    def get_hp(self, hp):
+        self.healthPoints+=hp
+
     def lose_hp(self, damage, invul):
         if not invul:
             self.healthPoints-=damage

@@ -10,6 +10,9 @@ class Bullets():
         self.is_shooting = False
         self.events = user_event_manager
         self.sfx = sfx_manager
+        self.speed = 300
+        self.angulo_abertura = 20
+        self.qty = 1
 
     def add_bullets(self, player, speed = 300, qty = 1, angulo_abertura = 20):
         if not self.is_shooting:

@@ -41,6 +41,7 @@ class Control():
             self.game_world.draw_and_update()
             self.game_world.test_bullet_enemy()
             self.game_world.test_damage_on_player()
+            self.game_world.test_item_player()
             self.events.run(self.screen.delta_time(), self.game_world)
             self.screen.update()
 

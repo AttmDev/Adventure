@@ -11,11 +11,10 @@ class World_objects():
         self.user_event = user_event_manager
         self.enemies_list = enemies_manager.Enemies(self.user_event, )
         self.player = player_manager.Player(self.user_event)
-        self.inventory = hotbar.Inventory()
         self.enemy_colliding = None
         self.sfx = sfx_manager.sfx()
         self.bullets = bullet_manager.Bullets(self.user_event, self.sfx)
-        self.ground_itens = item_manager.Item_manager(self.user_event)
+        self.item_manager = item_manager.Item_manager(self.user_event)
 
     def test_damage_on_player(self):
         for enemy in self.enemies_list.get_enemy_list():
@@ -24,6 +23,12 @@ class World_objects():
                 self.enemy_colliding = enemy #eu fiz duas vezes só pra garantir HSEIUAHEIUA
                 self.enemy_colliding = enemy #eu fiz duas vezes só pra garantir HSEIUAHEIUA
                 self.user_event.post_user_event(event_name.DAMAGE_RECEIVED)
+
+    def test_item_player(self):
+        for i in self.item_manager.get_item_list():
+            if collision.Collision.collided(i, self.player):
+                i.is_colliding()
+
 
     def test_bullet_enemy(self):
         for b in self.bullets.get_bullets_list():
@@ -42,11 +47,10 @@ class World_objects():
         return self.enemies_list.get_enemy_list()
 
     def draw_and_update(self):
-        self.inventory.draw()
-        self.enemies_list.draw_and_update(self.player, self.screen.delta_time())
+        self.enemies_list.draw_and_update(self.player, self.item_manager, self.screen.delta_time())
         self.sfx.draw_and_update()
         self.bullets.draw_and_update(self.screen.delta_time())
-        self.ground_itens.draw_and_update()
+        self.item_manager.draw_and_update()
         self.player.draw_and_update()
 
     def distance_between_objects(self, obj1, obj2):
