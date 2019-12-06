@@ -18,7 +18,7 @@ class Enemies():
             self.round+=1
 
             # self.user_event.post_user_event(event_name.ROUND_INCREMENT)
-            spawn_raro = 35
+            spawn_raro = 20
             for x in range(self.i):
 
                 rand = randint(0, spawn_raro)
