@@ -27,7 +27,12 @@ ENEMY_ZOMBIE_SPRITE = "game_files/assets/zombie.png"
 
 POTION_SPRITE = "game_files/assets/redpotion.png"
 
-SHOTGUN_SPRITE = "game_files/assets/shotgun.png"
+SHOTGUN_SPRITE = "game_files/assets/gun.png"
+
+START_SCREEN = "game_files/assets/survive.png"
+
+CONTROLS_SPRITE = "game_files/assets/cmd.png"
+
 
 RED = (255, 30, 30)
 WHITE = (255, 255, 255)

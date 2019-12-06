@@ -3,12 +3,12 @@ from game_files.scripts import constants, smoke
 from math import cos, sin, radians
 
 class Bullet(Sprite):
-    def __init__(self, sprite, frames, player, sfx, speed, angulo = 0):
+    def __init__(self, sprite, frames, player, sfx, speed, angulo = 0, dir=0):
         super().__init__(sprite, frames)
         self.set_total_duration(500)
         self.sfx_manager = sfx
         self.player = player
-        self.direction_player = player.get_curr_frame()
+        self.direction_player = dir
         self.calc_direction(angulo)
         self.set_initial_position()
         self.speed = speed

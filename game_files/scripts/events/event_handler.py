@@ -1,3 +1,5 @@
+from threading import Timer
+
 import pygame, time
 
 from game_files.scripts import battle_mode, bullet
@@ -10,6 +12,35 @@ class Game_event_handler():
         self.user_events_dispatcher = user_event
         self.battle = battle_mode.Battle(user_event)
         self.is_paused = False
+        self.activate_shotgun = False
+
+        self.bullet_params = [350, 1, 15]
+
+    def randomize_shot(self, world, activated, direc):
+        if activated:
+            shot = []
+            i = 1
+            speed = 50
+            for i in range(0, 3):
+                result = [self.bullet_params[0]-speed-25, 5 - i, 10*i, direc]
+                shot.append(result)
+                result = [self.bullet_params[0] - speed, self.bullet_params[1]+i, 10*i, direc]
+                shot.append(result)
+                # result = [self.bullet_params[0] - speed + 15, 5 - i, 4 * i]
+                # shot.append(result)
+                # result = [self.bullet_params[0] - speed, self.bullet_params[1] + i, 5 * i]
+                # shot.append(result)
+                i+=1
+                speed+=30
+
+            for param in shot:
+                # print(shot)
+                world.bullets.add_bullets(world.player, *param)
+        else:
+            world.bullets.add_bullets(world.player, direction=direc)
+
+    def end_timer(self):
+        self.activate_shotgun = False
 
     def run(self, delta_time, world):
 
@@ -29,18 +60,24 @@ class Game_event_handler():
             world.player.set_curr_frame(3)
 
 
+
+
         if key_pressed[pygame.K_RIGHT]:
             world.player.set_curr_frame(2)
-            world.bullets.add_bullets(world.player)
+            self.randomize_shot(world, self.activate_shotgun, 2)
+            # world.bullets.add_bullets(world.player, *self.bullet_params)
         elif key_pressed[pygame.K_LEFT]:
             world.player.set_curr_frame(0)
-            world.bullets.add_bullets(world.player)
+            self.randomize_shot(world, self.activate_shotgun, 0)
+            # world.bullets.add_bullets(world.player, *self.bullet_params)
         if key_pressed[pygame.K_UP]:
+            self.randomize_shot(world, self.activate_shotgun, 1)
             world.player.set_curr_frame(1)
-            world.bullets.add_bullets(world.player)
+            # world.bullets.add_bullets(world.player, *self.bullet_params)
         elif key_pressed[pygame.K_DOWN]:
+            self.randomize_shot(world, self.activate_shotgun, 3)
             world.player.set_curr_frame(3)
-            world.bullets.add_bullets(world.player)
+            # world.bullets.add_bullets(world.player, *self.bullet_params)
 
         if key_pressed[pygame.K_SPACE]:
             world.item_manager.use_item(world.player, world.bullets)
@@ -57,6 +94,7 @@ class Game_event_handler():
         #     key_pressed = pygame.key.get_pressed()
         #     if key_pressed[pygame.K_RETURN]:
         #         self.is_paused = False
+
 
         user_events = list(set(self.user_events_dispatcher.get_user_events()))
         for event in user_events:
@@ -84,3 +122,12 @@ class Game_event_handler():
 
             elif event == event_name.END_ITEM_USED:
                 world.item_manager.tick_end()
+
+            elif event == event_name.SHOTGUN_BEGIN:
+                self.activate_shotgun = True
+                t = Timer(10, self.end_timer)
+                t.start()
+
+
+            elif event == event_name.ROUND_INCREMENT:
+                world.incrementRound()

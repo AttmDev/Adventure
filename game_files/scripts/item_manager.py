@@ -2,7 +2,7 @@ from game_files.PPlay.sprite import Sprite
 from game_files.PPlay.gameimage import GameImage
 from game_files.scripts import constants as c
 from game_files.scripts.events import event_name
-
+import random
 
 class Item_manager():
     def __init__(self, user_event_manager):
@@ -14,12 +14,16 @@ class Item_manager():
         self.events = user_event_manager
         self.using_item = False
         self.cooldown = 0.2
+        self.all_itens = [Potion, Shotgun]
+
 
     def get_item_list(self):
         return self.itens
 
     def add_item_ground(self, position):
-        self.itens.append(Potion(position))
+        r = random.randint(0,1)
+
+        self.itens.append(self.all_itens[r](position, self.events))
 
     def use_item(self, player, bullets):
         if not self.using_item and len(self.inventory_itens) > 0:
@@ -83,13 +87,18 @@ class Item(Sprite):
         self.update()
 
 class Potion(Item):
-    def __init__(self, position):
+    def __init__(self, position, user_event=None):
         super().__init__(c.POTION_SPRITE, position)
 
     def use_item(self, player, bullets):
         player.hp.get_hp(2)
         self.used = True
 
+
 class Shotgun(Item):
-    def __init__(self, position):
+    def __init__(self, position, user_event):
         super().__init__(c.SHOTGUN_SPRITE, position)
+        self.ue = user_event
+    def use_item(self, player, bullets):
+        self.ue.post_user_event(event_name.SHOTGUN_BEGIN)
+        self.used = True

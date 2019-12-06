@@ -15,6 +15,7 @@ class User_event_manager():
     def __pop_event_from_queue(self):
         return self.user_event_queue.pop(0)
 
+    # @classmethod
     def start_user_event_timer(self, time, event):
         t = Timer(time, self.post_user_event, [event])
         t.start()

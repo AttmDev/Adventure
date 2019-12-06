@@ -14,17 +14,17 @@ class Bullets():
         self.angulo_abertura = 20
         self.qty = 1
 
-    def add_bullets(self, player, speed = 300, qty = 1, angulo_abertura = 20):
+    def add_bullets(self, player, speed = 300, qty = 1, angulo_abertura = 20, direction=0):
         if not self.is_shooting:
             self.events.post_user_event(event_name.START_BULLET_TICK)
             if qty == 1:
                 self.bullets.append(bullet.Bullet
-                                    (constants.BULLET_IMAGE, 5, player, self.sfx, speed))
+                                    (constants.BULLET_IMAGE, 5, player, self.sfx, speed,dir=direction))
             else:
                 dif_angulos = (angulo_abertura)/(qty-1)
                 angulo_inicial = angulo_abertura/2
                 for i in range(qty):
-                    self.bullets.append((bullet.Bullet(constants.BULLET_IMAGE, 5, player, self.sfx, speed, radians(angulo_inicial))))
+                    self.bullets.append((bullet.Bullet(constants.BULLET_IMAGE, 5, player, self.sfx, speed, radians(angulo_inicial), dir=direction)))
                     angulo_inicial-=dif_angulos
 
 

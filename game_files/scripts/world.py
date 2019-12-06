@@ -1,7 +1,7 @@
 from math import sqrt
 
 from game_files.PPlay import collision
-from game_files.scripts import constants, enemies_manager, bullet, bullet_manager, player_manager, hotbar, sfx_manager, item_manager
+from game_files.scripts import constants, enemies_manager, bullet, bullet_manager, player_manager, hotbar, sfx_manager, item_manager, begin
 from game_files.scripts.events import event_name
 
 
@@ -13,9 +13,9 @@ class World_objects():
         self.player = player_manager.Player(self.user_event)
         self.enemy_colliding = None
         self.sfx = sfx_manager.sfx()
+        self.sfx.add_to_list(begin.Begin())
         self.bullets = bullet_manager.Bullets(self.user_event, self.sfx)
         self.item_manager = item_manager.Item_manager(self.user_event)
-
     def test_damage_on_player(self):
         for enemy in self.enemies_list.get_enemy_list():
             if collision.Collision.collided(self.player, enemy):
@@ -40,6 +40,12 @@ class World_objects():
                     self.user_event.post_user_event(event_name.DAMAGE_DEALT)
                     break
 
+    def round_tracker(self, window):
+        window.draw_text(f"ROUND: {str(self.enemies_list.round)}", int(constants.width/2-100), constants.height/20, 62, (50, 50, 50), "IMPACT")
+
+        window.draw_text(f"ROUND: {str(self.enemies_list.round)}", int(constants.width / 2 - 98), (constants.height / 20)-3,
+                     62, (255, 255, 255), "IMPACT")
+
     def get_player(self):
         return self.player
 
@@ -48,10 +54,12 @@ class World_objects():
 
     def draw_and_update(self):
         self.enemies_list.draw_and_update(self.player, self.item_manager, self.screen.delta_time())
-        self.sfx.draw_and_update()
         self.bullets.draw_and_update(self.screen.delta_time())
-        self.item_manager.draw_and_update()
         self.player.draw_and_update()
+        self.sfx.draw_and_update()
+        self.item_manager.draw_and_update()
+        self.round_tracker(self.screen)
+
 
     def distance_between_objects(self, obj1, obj2):
         return sqrt((obj2.x-obj1.x) ** 2 + (obj2.y-obj1.y) ** 2)
